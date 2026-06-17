@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bárbara Castro — Front-End Developer</title>
+
+  <!-- Google Fonts: Playfair Display (display serifada) + Inter (corpo) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Folha de estilos externa -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVBAR — menu fixo no topo com links de âncora
+  ============================================================ -->
+  <header class="navbar" id="navbar">
+    <div class="navbar__brand">
+      <!-- Logo / nome abreviado -->
+      <a href="#hero" class="navbar__logo">Bárbara.</a>
+    </div>
+
+    <!-- Links de navegação (desktop) -->
+    <nav class="navbar__links" aria-label="Navegação principal">
+      <a href="#sobre"    class="nav-link">02 Sobre</a>
+      <a href="#formacao" class="nav-link">03 Formação</a>
+      <a href="#projetos" class="nav-link">04 Projetos</a>
+      <a href="#habilidades" class="nav-link">05 Habilidades</a>
+      <a href="#contato"  class="nav-link">06 Contato</a>
+    </nav>
+
+    <!-- Botão CTA visível no desktop -->
+    <a href="#contato" class="navbar__cta">Contato ↗</a>
+
+    <!-- Botão hambúrguer para mobile — controlado via JS -->
+    <button class="navbar__hamburger" id="hamburgerBtn" aria-label="Abrir menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- Menu mobile — aparece ao clicar no hambúrguer -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <nav>
+      <a href="#sobre"       class="mobile-link">02 — Sobre</a>
+      <a href="#formacao"    class="mobile-link">03 — Formação</a>
+      <a href="#projetos"    class="mobile-link">04 — Projetos</a>
+      <a href="#habilidades" class="mobile-link">05 — Habilidades</a>
+      <a href="#contato"     class="mobile-link">06 — Contato</a>
+    </nav>
+  </div>
+
+
+  <!-- ============================================================
+       SEÇÃO 01 — HERO
+  ============================================================ -->
+  <section class="hero" id="hero">
+
+    <!-- Metadados editoriais no topo da página -->
+    <div class="hero__meta">
+      <span>ISSUE N°01 — MMXXVI</span>
+      <span>PORTFÓLIO PESSOAL</span>
+      <span>BAHIA · BR</span>
+    </div>
+
+    <!-- Título principal editorial -->
+    <div class="hero__title-block">
+      <!-- Ornamento decorativo (squiggle SVG) -->
+      <svg class="hero__squiggle" viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M2 10 C10 2, 20 18, 30 10 C40 2, 50 18, 60 10 C70 2, 75 15, 78 10" stroke="#c97d8a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+
+      <h1 class="hero__headline">
+        <span class="hero__headline--serif">Code</span>
+        <em class="hero__headline--italic">&amp; design.</em>
+      </h1>
+
+      <!-- Estrela decorativa — animação de rotação via CSS -->
+      <span class="hero__star" aria-hidden="true">✦</span>
+    </div>
+
+    <!-- Bloco inferior: foto + quote + dados -->
+    <div class="hero__bottom">
+      <!-- Foto de perfil -->
+      <div class="hero__photo-wrap">
+        <img
+          src="foto_portf.jpeg"
+          alt="Foto de Bárbara Castro"
+          class="hero__photo"
+        />
+      </div>
+
+      <!-- Quote e dados pessoais -->
+      <div class="hero__info">
+        <blockquote class="hero__quote">
+          "Acredito que cada interface conta uma história, onde
+          <em class="hero__quote--accent">tecnologia, design e criatividade</em>
+          encontram espaço para coexistir."
+        </blockquote>
+
+        <div class="hero__data">
+          <div class="hero__data-item">
+            <span class="hero__data-label">QUEM</span>
+            <strong class="hero__data-value">Bárbara Castro</strong>
+            <em class="hero__data-sub">Front-End Developer</em>
+          </div>
+          <div class="hero__data-item">
+            <span class="hero__data-label">ONDE ESTUDO</span>
+            <strong class="hero__data-value">Engenharia de Software</strong>
+            <em class="hero__data-sub">UNINTER</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       BANNER TICKER — faixa animada com palavras-chave
+       Conteúdo triplicado para garantir loop contínuo em qualquer largura de tela
+  ============================================================ -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <span>Front-End</span><span class="ticker__star">★</span>
+      <span>Design Systems</span><span class="ticker__star">★</span>
+      <span>HTML · CSS · JS</span><span class="ticker__star">★</span>
+      <span>UI Design</span><span class="ticker__star">★</span>
+      <span>Responsive</span><span class="ticker__star">★</span>
+      <span>Figma</span><span class="ticker__star">★</span>
+      <span>Front-End</span><span class="ticker__star">★</span>
+      <span>Design Systems</span><span class="ticker__star">★</span>
+      <span>HTML · CSS · JS</span><span class="ticker__star">★</span>
+      <span>UI Design</span><span class="ticker__star">★</span>
+      <span>Responsive</span><span class="ticker__star">★</span>
+      <span>Figma</span><span class="ticker__star">★</span>
+      <span>Front-End</span><span class="ticker__star">★</span>
+      <span>Design Systems</span><span class="ticker__star">★</span>
+      <span>HTML · CSS · JS</span><span class="ticker__star">★</span>
+      <span>UI Design</span><span class="ticker__star">★</span>
+      <span>Responsive</span><span class="ticker__star">★</span>
+      <span>Figma</span><span class="ticker__star">★</span>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       SEÇÃO 02 — SOBRE MIM
+  ============================================================ -->
+  <section class="sobre" id="sobre">
+    <div class="sobre__inner">
+
+      <!-- Cabeçalho da seção -->
+      <div class="section-eyebrow">
+        <span class="section-eyebrow__num">02 — CHAPTER</span>
+      </div>
+      <h2 class="section-title">
+        Sobre<br>mim.
+        <!-- Ornamento ondulado abaixo do título -->
+        <svg class="section-title__wave" viewBox="0 0 80 12" fill="none" aria-hidden="true">
+          <path d="M2 6 C10 1, 20 11, 30 6 C40 1, 50 11, 60 6 C70 1, 75 10, 78 6" stroke="#c97d8a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </h2>
+
+      <!-- Conteúdo principal -->
+      <div class="sobre__content">
+        <div class="sobre__text-col">
+          <p class="sobre__text--lead">
+            Sou estudante de Engenharia de Software com formação técnica em Informática
+            e grande interesse por desenvolvimento front-end, design de interfaces e
+            experiências digitais. Gosto de transformar ideias em soluções visuais
+            funcionais, combinando tecnologia, criatividade e atenção aos detalhes.
+          </p>
+          <p class="sobre__text">
+            Minha trajetória começou no Instituto Federal da Bahia, onde concluí o
+            Técnico em Informática. Atualmente curso Engenharia de Software pela UNINTER,
+            aprofundando meus conhecimentos em desenvolvimento web, arquitetura de
+            software e experiência do usuário.
+          </p>
+          <p class="sobre__text">
+            Acredito que o front-end vai além da implementação de interfaces: é o ponto
+            de encontro entre tecnologia, comunicação e design. Meu objetivo é criar
+            experiências digitais intuitivas, acessíveis e visualmente marcantes.
+          </p>
+        </div>
+
+        <!-- Estatísticas -->
+        <div class="sobre__stats">
+          <div class="sobre__stat">
+            <span class="sobre__stat-num">05+</span>
+            <span class="sobre__stat-label">PROJETOS<br>DESENVOLVIDOS</span>
+          </div>
+          <div class="sobre__stat">
+            <span class="sobre__stat-num">2°</span>
+            <span class="sobre__stat-label">PERÍODO<br>CURSANDO</span>
+          </div>
+          <div class="sobre__stat">
+            <span class="sobre__stat-num">∞</span>
+            <span class="sobre__stat-label">CAFÉS</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SEÇÃO 03 — FORMAÇÃO  (fundo escuro)
+  ============================================================ -->
+  <section class="formacao" id="formacao">
+    <div class="formacao__inner">
+
+      <!-- Cabeçalho -->
+      <div class="section-eyebrow section-eyebrow--light">
+        <span class="section-eyebrow__num">03 — EDUCATION</span>
+      </div>
+
+      <div class="formacao__header">
+        <h2 class="formacao__title">Formação.</h2>
+        <p class="formacao__subtitle">
+          Um itinerário entre a sala de aula,<br>
+          o caderno de anotações e a tela em branco.
+        </p>
+      </div>
+
+      <!-- Lista de formações — cada item tem hover destacado -->
+      <div class="formacao__list">
+
+        <!-- Item 01 -->
+        <article class="formacao__item" tabindex="0">
+          <div class="formacao__item-meta">
+            <span class="formacao__item-num">N°01</span>
+            <span class="formacao__item-period">2025 — PRESENTE</span>
+          </div>
+          <div class="formacao__item-body">
+            <h3 class="formacao__item-title">Engenharia de<br>Software</h3>
+            <span class="formacao__item-inst">UNINTER</span>
+          </div>
+          <p class="formacao__item-desc">
+            Bacharelado com foco em arquitetura de software, algoritmos
+            e desenvolvimento web.
+          </p>
+        </article>
+
+        <!-- Item 02 -->
+        <article class="formacao__item" tabindex="0">
+          <div class="formacao__item-meta">
+            <span class="formacao__item-num">N°02</span>
+            <span class="formacao__item-period">2020 — 2023</span>
+          </div>
+          <div class="formacao__item-body">
+            <h3 class="formacao__item-title">Técnico em<br>Informática</h3>
+            <span class="formacao__item-inst">INSTITUTO FEDERAL DA BAHIA</span>
+          </div>
+          <p class="formacao__item-desc">
+            Formação técnica em programação, redes, manutenção de
+            computadores e suporte técnico.
+          </p>
+        </article>
+
+        <!-- Item 03 -->
+        <article class="formacao__item" tabindex="0">
+          <div class="formacao__item-meta">
+            <span class="formacao__item-num">N°03</span>
+            <span class="formacao__item-period">2024</span>
+          </div>
+          <div class="formacao__item-body">
+            <h3 class="formacao__item-title">Fundamentos<br>de HTML & CSS</h3>
+            <span class="formacao__item-inst">ROCKETSEAT</span>
+          </div>
+          <p class="formacao__item-desc">
+            Curso focado em HTML5 semântico, CSS3 avançado e boas
+            práticas de desenvolvimento front-end.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SEÇÃO 04 — PROJETOS
+  ============================================================ -->
+  <section class="projetos" id="projetos">
+    <div class="projetos__inner">
+
+      <div class="section-eyebrow">
+        <span class="section-eyebrow__num">04 — SELECTED WORKS</span>
+      </div>
+
+      <h2 class="projetos__title">
+        Projetos,<br>
+        <em>selecionados.</em>
+      </h2>
+
+      <!-- Estrela decorativa giratória -->
+      <span class="projetos__star" aria-hidden="true">✦</span>
+
+      <!-- Cards de projeto -->
+      <div class="projetos__list">
+
+        <!-- Projeto 01 — Zingen -->
+        <article class="projeto-card">
+          <div class="projeto-card__img-wrap">
+            <a href="https://barbaracbr.github.io/zingen/" target="_blank" rel="noopener">
+              <img
+                src="img_zingen.png"
+                alt="Preview da Landing Page do Zingen"
+                class="projeto-card__img"
+              />
+            </a>
+          </div>
+
+          <div class="projeto-card__info">
+            <span class="projeto-card__stack">HTML5 · CSS3 · Figma &nbsp;&nbsp;&nbsp; 2025</span>
+            <h3 class="projeto-card__title">Zingen<br>Landing Page.</h3>
+            <p class="projeto-card__desc">
+              Landing page responsiva desenvolvida para apresentar o aplicativo
+              de karaokê Zingen de forma moderna e intuitiva, destacando
+              funcionalidades, planos e proposta de valor.
+            </p>
+            <a href="https://barbaracbr.github.io/zingen/" target="_blank" rel="noopener" class="projeto-card__link">
+              VER PROJETO ↗
+            </a>
+          </div>
+        </article>
+
+        <!-- Projeto 02 — Formulário de Matrícula -->
+        <article class="projeto-card projeto-card--reverse">
+          <div class="projeto-card__img-wrap">
+            <a href="https://barbaracbr.github.io/formulario-de-matricula/" target="_blank" rel="noopener">
+              <img
+                src="img_matricula.png"
+                alt="Preview do Formulário de Matrícula Estrelas do Amanhã"
+                class="projeto-card__img"
+              />
+            </a>
+          </div>
+
+          <div class="projeto-card__info">
+            <span class="projeto-card__stack">HTML5 · CSS3 · Figma · UX/UI &nbsp;&nbsp;&nbsp; 2025</span>
+            <h3 class="projeto-card__title">Formulário de<br>Matrícula.</h3>
+            <p class="projeto-card__desc">
+              Projeto com foco em organização visual, responsividade e
+              experiência do usuário, simulando um sistema moderno de
+              matrícula digital para a escola infantil Estrelas do Amanhã.
+            </p>
+            <a href="https://barbaracbr.github.io/formulario-de-matricula/" target="_blank" rel="noopener" class="projeto-card__link">
+              VER PROJETO ↗
+            </a>
+          </div>
+        </article>
+
+        <!-- Projeto 03 — Progress.bar -->
+        <article class="projeto-card">
+          <div class="projeto-card__img-wrap">
+            <a href="https://barbaracbr.github.io/progress.bar/" target="_blank" rel="noopener">
+              <img
+                src="img_progressbar.png"
+                alt="Preview do gerenciador de tarefas Progress.bar"
+                class="projeto-card__img"
+              />
+            </a>
+          </div>
+
+          <div class="projeto-card__info">
+            <span class="projeto-card__stack">HTML5 · CSS3 · JavaScript &nbsp;&nbsp;&nbsp; 2025</span>
+            <h3 class="projeto-card__title">Progress<br>.bar</h3>
+            <p class="projeto-card__desc">
+              Gerenciador de tarefas simples e divertido com visual pixelado,
+              barra de progresso animada e modo escuro. Feito com HTML, CSS e
+              JavaScript puro para praticar lógica, DOM e estilização retrô.
+            </p>
+            <a href="https://barbaracbr.github.io/progress.bar/" target="_blank" rel="noopener" class="projeto-card__link">
+              VER PROJETO ↗
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SEÇÃO 05 — HABILIDADES
+  ============================================================ -->
+  <section class="habilidades" id="habilidades">
+    <div class="habilidades__inner">
+
+      <div class="section-eyebrow">
+        <span class="section-eyebrow__num">05 — TOOLKIT</span>
+      </div>
+
+      <div class="habilidades__header">
+        <h2 class="habilidades__title">
+          Habilidades<br>
+          <em>&amp;</em><br>
+          <em class="habilidades__title--accent">ferramentas</em>
+        </h2>
+        <p class="habilidades__subtitle">
+          Um pequeno arsenal —<br>em constante reedição.
+        </p>
+      </div>
+
+      <!-- Grade de habilidades -->
+      <div class="habilidades__grid">
+
+        <div class="habilidades__col">
+          <span class="habilidades__col-label">✦ LINGUAGENS</span>
+          <ul class="habilidades__list">
+            <li>HTML5</li>
+            <li>CSS3</li>
+            <li>JavaScript</li>
+          </ul>
+        </div>
+
+        <div class="habilidades__col">
+          <span class="habilidades__col-label">✦ FERRAMENTAS</span>
+          <ul class="habilidades__list">
+            <li>Git</li>
+            <li>GitHub</li>
+            <li>Figma</li>
+            <li>VS Code</li>
+          </ul>
+        </div>
+
+        <div class="habilidades__col">
+          <span class="habilidades__col-label">✦ DESENVOLVIMENTO</span>
+          <ul class="habilidades__list">
+            <li>Front-End Dev</li>
+            <li>Responsive Design</li>
+            <li>UI Design</li>
+            <li>UX Fundamentals</li>
+          </ul>
+        </div>
+
+        <div class="habilidades__col">
+          <span class="habilidades__col-label">✦ COMPETÊNCIAS</span>
+          <ul class="habilidades__list">
+            <li>Organização</li>
+            <li>Criatividade</li>
+            <li>Comunicação</li>
+            <li>Atenção aos detalhes</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SEÇÃO 06 — CONTATO  
+  ============================================================ -->
+  <section class="contato" id="contato">
+    <div class="contato__inner">
+
+      <!-- Lado esquerdo: texto + links -->
+      <div class="contato__left">
+        <div class="section-eyebrow section-eyebrow--light">
+          <span class="section-eyebrow__num">06 — GET IN TOUCH</span>
+        </div>
+
+        <h2 class="contato__title">
+          Vamos<br>
+          <em>conversar?</em>
+        </h2>
+
+        <p class="contato__subtitle">
+          Atualmente estou em busca de oportunidades de estágio,
+          projetos acadêmicos e experiências que contribuam para meu
+          crescimento como desenvolvedora front-end.
+        </p>
+
+        <!-- Links de contato -->
+        <ul class="contato__links">
+          <li>
+            <a href="mailto:barbaracastbr@gmail.com" class="contato__link">
+              <!-- ícone de envelope (SVG inline) -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              barbaracastbr@gmail.com
+            </a>
+          </li>
+          <li>
+            <a href="https://linkedin.com/in/barbarabcr" target="_blank" rel="noopener" class="contato__link">
+              <!-- ícone LinkedIn -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+              /in/barbarabcr
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/barbaracbr" target="_blank" rel="noopener" class="contato__link">
+              <!-- ícone GitHub -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              /barbaracbr
+            </a>
+          </li>
+        </ul>
+
+        <!-- Ornamento ondulado decorativo -->
+        <svg class="contato__wave" viewBox="0 0 120 20" fill="none" aria-hidden="true">
+          <path d="M2 10 C15 2, 28 18, 40 10 C52 2, 64 18, 76 10 C88 2, 100 18, 118 10" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <!-- Lado direito: formulário de contato -->
+      <div class="contato__right">
+        <div class="contato__form-wrap">
+          <p class="contato__form-label">ENVIE UMA MENSAGEM</p>
+
+          <!-- Formulário — validação e envio simulado gerenciados em script.js -->
+          <form id="contactForm" class="contato__form" novalidate>
+
+            <div class="form-field">
+              <label for="nome" class="form-field__label">NOME</label>
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                class="form-field__input"
+                placeholder="Seu nome completo"
+                autocomplete="name"
+              />
+              <!-- Mensagem de erro exibida via JS -->
+              <span class="form-field__error" id="erroNome" aria-live="polite"></span>
+            </div>
+
+            <div class="form-field">
+              <label for="email" class="form-field__label">E-MAIL</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-field__input"
+                placeholder="seu@email.com"
+                autocomplete="email"
+              />
+              <span class="form-field__error" id="erroEmail" aria-live="polite"></span>
+            </div>
+
+            <div class="form-field">
+              <label for="mensagem" class="form-field__label">MENSAGEM</label>
+              <textarea
+                id="mensagem"
+                name="mensagem"
+                class="form-field__input form-field__input--textarea"
+                placeholder="Escreva sua mensagem..."
+                rows="4"
+              ></textarea>
+              <span class="form-field__error" id="erroMensagem" aria-live="polite"></span>
+            </div>
+
+            <button type="submit" class="form-btn">ENVIAR MENSAGEM →</button>
+          </form>
+
+          <!-- Modal de sucesso — exibido via JS após envio válido -->
+          <div class="form-modal" id="formModal" aria-hidden="true" role="dialog" aria-labelledby="modalMsg">
+            <div class="form-modal__box">
+              <span class="form-modal__icon">✓</span>
+              <p id="modalMsg" class="form-modal__msg">Mensagem enviada com sucesso!</p>
+              <p class="form-modal__sub">Em breve entrarei em contato. Obrigada!</p>
+              <button class="form-modal__close" id="modalClose">Fechar</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer">
+    <span>© 2026 Bárbara Castro</span>
+    <span>Pessoal Portfolio ·  N°01</span>
+    <span>Entre código, cafés e estudos.</span>
+  </footer>
+
+  <!-- Script externo — validação, menu mobile, animações -->
+  <script src="script.js"></script>
+</body>
+</html>

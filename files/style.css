@@ -1,0 +1,1306 @@
+/* ================================================================
+   BÁRBARA CASTRO — PORTFÓLIO EDITORIAL
+   style.css — Estilos completos sem frameworks
+   ================================================================ */
+
+
+/* ----------------------------------------------------------------
+   1. RESET & VARIÁVEIS GLOBAIS
+---------------------------------------------------------------- */
+
+/* Reset básico para garantir consistência entre navegadores */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Variáveis de design — paleta, tipografia, espaçamentos */
+:root {
+  /* Cores principais */
+  --color-cream:      #F2EDE4;   /* fundo claro / beige editorial */
+  --color-ink:        #1a1612;   /* preto quase-total para texto principal */
+  --color-dark:       #161412;   /* fundo das seções escuras */
+  --color-rose:       #c97d8a;   /* acento rosa/terracota claro */
+  --color-terracotta: #b56b6b;   /* terracota mais saturada (fundo contato) */
+  --color-blush:      #d9a0a8;   /* rosa suave para itálicos e hovers */
+  --color-white:      #ffffff;
+  --color-muted:      #6b6059;   /* cinza quente para textos secundários */
+
+  /* Tipografia */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+
+  /* Espaçamentos */
+  --space-xs:  0.5rem;
+  --space-sm:  1rem;
+  --space-md:  2rem;
+  --space-lg:  4rem;
+  --space-xl:  8rem;
+
+  /* Navbar */
+  --navbar-h: 60px;
+
+  /* Transição padrão */
+  --transition: 0.25s ease;
+}
+
+/* Scroll suave para navegação por âncoras */
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+/* Fundo e cor padrão do corpo */
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Remove estilo padrão de listas */
+ul { list-style: none; }
+
+/* Links sem sublinhado por padrão */
+a { text-decoration: none; color: inherit; }
+
+/* Imagens responsivas */
+img { max-width: 100%; display: block; }
+
+
+/* ----------------------------------------------------------------
+   2. NAVBAR
+---------------------------------------------------------------- */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: var(--navbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-md);
+  background-color: var(--color-cream);
+  border-bottom: 1px solid rgba(26, 22, 18, 0.08);
+  /* Sombra sutil ao rolar — adicionada via JS */
+  transition: box-shadow var(--transition);
+}
+
+/* Sombra que o JS ativa ao rolar */
+.navbar.scrolled {
+  box-shadow: 0 2px 20px rgba(26, 22, 18, 0.08);
+}
+
+/* Logo/nome no canto esquerdo */
+.navbar__logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--color-ink);
+  letter-spacing: -0.02em;
+  transition: color var(--transition);
+}
+.navbar__logo:hover { color: var(--color-rose); }
+
+/* Links do menu (desktop) */
+.navbar__links {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.nav-link {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  padding: 4px 0;
+  position: relative;
+  transition: color var(--transition);
+}
+
+/* Sublinhado animado no hover */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-rose);
+  transition: width var(--transition);
+}
+.nav-link:hover { color: var(--color-ink); }
+.nav-link:hover::after { width: 100%; }
+
+/* Link ativo destacado */
+.nav-link.active {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+.nav-link.active::after { width: 100%; }
+
+/* Botão CTA — estilo pill com borda */
+.navbar__cta {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  border: 1.5px solid var(--color-ink);
+  border-radius: 999px;
+  padding: 6px 16px;
+  transition: background-color var(--transition), color var(--transition);
+}
+.navbar__cta:hover {
+  background-color: var(--color-ink);
+  color: var(--color-cream);
+}
+
+/* Botão hambúrguer — visível apenas no mobile */
+.navbar__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+.navbar__hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-ink);
+  border-radius: 2px;
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+/* Animação do hambúrguer quando aberto */
+.navbar__hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.navbar__hamburger.open span:nth-child(2) { opacity: 0; }
+.navbar__hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+
+/* ----------------------------------------------------------------
+   3. MENU MOBILE
+---------------------------------------------------------------- */
+
+.mobile-menu {
+  position: fixed;
+  top: var(--navbar-h);
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background-color: var(--color-ink);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  /* Oculto por padrão — JS alterna a classe 'open' */
+  transform: translateY(-110%);
+  transition: transform 0.35s ease;
+}
+
+.mobile-menu.open {
+  transform: translateY(0);
+}
+
+.mobile-link {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-white);
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  transition: color var(--transition);
+}
+.mobile-link:hover { color: var(--color-blush); }
+
+
+/* ----------------------------------------------------------------
+   4. SEÇÃO HERO
+---------------------------------------------------------------- */
+
+.hero {
+  min-height: 100vh;
+  padding: calc(var(--navbar-h) + var(--space-md)) var(--space-md) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Linha de metadados editoriais */
+.hero__meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  border-top: 1px solid rgba(26,22,18,0.15);
+  border-bottom: 1px solid rgba(26,22,18,0.15);
+  padding: 10px 0;
+  margin-bottom: var(--space-lg);
+}
+
+/* Bloco do título principal */
+.hero__title-block {
+  position: relative;
+  margin-bottom: var(--space-lg);
+}
+
+/* Ornamento SVG acima do título */
+.hero__squiggle {
+  width: 80px;
+  margin-bottom: var(--space-sm);
+}
+
+/* Título display grande */
+.hero__headline {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 9rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+}
+
+/* Palavra em itálico com cor rosada */
+.hero__headline--italic {
+  display: block;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-terracotta);
+}
+
+/* Estrela decorativa — rotação contínua via CSS */
+.hero__star {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  font-size: 3rem;
+  color: var(--color-blush);
+  display: inline-block;
+  animation: spin 8s linear infinite;
+}
+
+/* Bloco inferior do hero: foto + info */
+.hero__bottom {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: var(--space-lg);
+  align-items: center;
+  margin-top: var(--space-lg);
+}
+
+/* Foto de perfil real */
+.hero__photo-wrap {
+  position: relative;
+}
+
+.hero__photo {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  filter: grayscale(20%);
+  transition: filter var(--transition);
+}
+
+.hero__photo:hover {
+  filter: grayscale(0%);
+}
+
+/* Citação editorial */
+.hero__quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--color-ink);
+  margin-bottom: var(--space-md);
+  border: none;
+  padding: 0;
+}
+
+.hero__quote--accent {
+  color: var(--color-terracotta);
+  font-style: italic;
+}
+
+/* Dados pessoais em grid */
+.hero__data {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.hero__data-label {
+  display: block;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.hero__data-value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.hero__data-sub {
+  display: block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+
+/* ----------------------------------------------------------------
+   5. BANNER TICKER (faixa animada)
+---------------------------------------------------------------- */
+
+.ticker {
+  background-color: var(--color-ink);
+  color: var(--color-white);
+  padding: 18px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Trilha que se move infinitamente para a esquerda */
+/* translateX(-50%) move exatamente metade da trilha (conteúdo duplicado),
+   criando o efeito de loop contínuo sem cortes */
+.ticker__track {
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+  animation: ticker 30s linear infinite;
+  will-change: transform;
+}
+
+.ticker__track span {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-style: italic;
+  font-weight: 400;
+  flex-shrink: 0;
+}
+
+.ticker__star {
+  color: var(--color-blush);
+  font-style: normal !important;
+}
+
+
+/* ----------------------------------------------------------------
+   6. ELEMENTOS REUTILIZÁVEIS DE SEÇÃO
+---------------------------------------------------------------- */
+
+/* Eyebrow (rótulo pequeno acima dos títulos de seção) */
+.section-eyebrow {
+  margin-bottom: var(--space-sm);
+}
+
+.section-eyebrow__num {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-rose);
+  font-weight: 600;
+}
+
+.section-eyebrow--light .section-eyebrow__num {
+  color: var(--color-rose);
+}
+
+/* Título de seção padrão */
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  position: relative;
+  display: inline-block;
+}
+
+/* Ondinha decorativa abaixo de alguns títulos */
+.section-title__wave {
+  display: block;
+  width: 80px;
+  margin-top: 12px;
+}
+
+
+/* ----------------------------------------------------------------
+   7. SEÇÃO SOBRE MIM
+---------------------------------------------------------------- */
+
+.sobre {
+  padding: var(--space-xl) var(--space-md);
+}
+
+.sobre__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Layout principal: texto à esquerda, stats à direita */
+.sobre__content {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: var(--space-xl);
+  margin-top: var(--space-lg);
+  align-items: start;
+}
+
+/* Texto lead em tamanho maior */
+.sobre__text--lead {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--color-ink);
+  margin-bottom: var(--space-md);
+  font-weight: 400;
+}
+
+.sobre__text {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-muted);
+  margin-bottom: var(--space-sm);
+}
+
+/* Bloco de estatísticas */
+.sobre__stats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding-top: var(--space-md);
+}
+
+.sobre__stat-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 900;
+  line-height: 1;
+  color: var(--color-ink);
+}
+
+.sobre__stat-label {
+  display: block;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-top: 4px;
+}
+
+
+/* ----------------------------------------------------------------
+   8. SEÇÃO FORMAÇÃO (fundo escuro)
+---------------------------------------------------------------- */
+
+.formacao {
+  background-color: var(--color-dark);
+  padding: var(--space-xl) var(--space-md);
+  color: var(--color-white);
+}
+
+.formacao__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Cabeçalho da seção */
+.formacao__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: var(--space-lg);
+  gap: var(--space-md);
+}
+
+.formacao__title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--color-white);
+}
+
+.formacao__subtitle {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.45);
+  text-align: right;
+  max-width: 320px;
+}
+
+/* Itens da lista de formação */
+.formacao__list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cada item: separador superior */
+.formacao__item {
+  display: grid;
+  grid-template-columns: 240px 1fr 1fr;
+  gap: var(--space-md);
+  align-items: center;
+  padding: var(--space-md) 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  cursor: default;
+  transition: background-color var(--transition), padding var(--transition);
+  border-radius: 4px;
+  outline: none; /* foco gerenciado com :focus-visible */
+}
+
+/* Hover rosa — destaca o item */
+.formacao__item:hover,
+.formacao__item:focus-visible {
+  background-color: rgba(201, 125, 138, 0.1);
+  padding-left: var(--space-sm);
+  padding-right: var(--space-sm);
+}
+
+.formacao__item:hover .formacao__item-title,
+.formacao__item:focus-visible .formacao__item-title {
+  color: var(--color-blush);
+}
+
+.formacao__item-num {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.3);
+}
+
+.formacao__item-period {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-top: 6px;
+}
+
+.formacao__item-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--color-white);
+  line-height: 1.1;
+  transition: color var(--transition);
+}
+
+.formacao__item-inst {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-top: 6px;
+}
+
+.formacao__item-desc {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.5);
+}
+
+
+/* ----------------------------------------------------------------
+   9. SEÇÃO PROJETOS
+---------------------------------------------------------------- */
+
+.projetos {
+  padding: var(--space-xl) var(--space-md);
+  position: relative;
+}
+
+.projetos__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.projetos__title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.0;
+  color: var(--color-ink);
+  margin: var(--space-sm) 0 var(--space-lg);
+}
+
+.projetos__title em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Estrela decorativa giratória */
+.projetos__star {
+  position: absolute;
+  top: var(--space-xl);
+  right: var(--space-md);
+  font-size: 2.5rem;
+  color: var(--color-blush);
+  animation: spin 10s linear infinite;
+}
+
+/* Lista de projetos */
+.projetos__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* Card de projeto individual */
+.projeto-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+/* Versão invertida (imagem à direita) */
+.projeto-card--reverse {
+  direction: rtl;
+}
+.projeto-card--reverse > * {
+  direction: ltr;
+}
+
+/* Imagem real dos projetos */
+.projeto-card__img-wrap {
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.projeto-card__img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.projeto-card__img-wrap:hover .projeto-card__img {
+  transform: scale(1.03);
+}
+
+/* Informações do projeto */
+.projeto-card__stack {
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+.projeto-card__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin-bottom: var(--space-sm);
+}
+
+.projeto-card__desc {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--color-muted);
+  margin-bottom: var(--space-md);
+}
+
+/* Link de ver projeto */
+.projeto-card__link {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--color-ink);
+  transition: color var(--transition), border-color var(--transition);
+}
+.projeto-card__link:hover {
+  color: var(--color-rose);
+  border-color: var(--color-rose);
+}
+
+
+/* ----------------------------------------------------------------
+   10. SEÇÃO HABILIDADES
+---------------------------------------------------------------- */
+
+.habilidades {
+  background-color: var(--color-cream);
+  padding: var(--space-xl) var(--space-md);
+  border-top: 1px solid rgba(26,22,18,0.08);
+}
+
+.habilidades__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Cabeçalho com título e subtítulo lado a lado */
+.habilidades__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: var(--space-sm) 0 var(--space-lg);
+}
+
+.habilidades__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+
+.habilidades__title em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* "ferramentas" em rosa itálico */
+.habilidades__title--accent {
+  color: var(--color-blush);
+}
+
+.habilidades__subtitle {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--color-muted);
+  text-align: right;
+}
+
+/* Grade de 4 colunas para as categorias */
+.habilidades__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid rgba(26,22,18,0.15);
+}
+
+/* Cada coluna de habilidades */
+.habilidades__col {
+  padding: var(--space-md);
+  border-right: 1px solid rgba(26,22,18,0.15);
+  transition: background-color var(--transition);
+}
+.habilidades__col:last-child { border-right: none; }
+
+/* Hover escuro em todas as colunas (não só na primeira) */
+.habilidades__col:hover { background-color: var(--color-ink); }
+.habilidades__col:hover .habilidades__col-label,
+.habilidades__col:hover .habilidades__list li {
+  color: var(--color-white);
+}
+
+/* Label da categoria */
+.habilidades__col-label {
+  display: block;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-md);
+  font-weight: 600;
+}
+
+/* Itens da lista */
+.habilidades__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.habilidades__list li {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 700;
+  color: var(--color-ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color var(--transition);
+}
+
+/* Prefixo "+" antes de cada item */
+.habilidades__list li::before {
+  content: '+';
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--color-rose);
+  font-weight: 600;
+}
+
+
+/* ----------------------------------------------------------------
+   11. SEÇÃO CONTATO (fundo terracota)
+---------------------------------------------------------------- */
+
+.contato {
+  background-color: var(--color-terracotta);
+  padding: var(--space-xl) var(--space-md);
+  color: var(--color-white);
+}
+
+.contato__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+/* Título da seção de contato */
+.contato__title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.0;
+  color: var(--color-white);
+  margin: var(--space-sm) 0 var(--space-md);
+}
+
+.contato__title em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.contato__subtitle {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: var(--space-md);
+}
+
+/* Lista de links de contato */
+.contato__links {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: var(--space-lg);
+}
+
+/* Cada link com ícone SVG */
+.contato__link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.9);
+  transition: color var(--transition), gap var(--transition);
+}
+.contato__link:hover {
+  color: var(--color-white);
+  gap: 16px;
+}
+
+.contato__link svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* Ornamento SVG ondulado */
+.contato__wave {
+  width: 120px;
+  margin-top: var(--space-md);
+}
+
+/* Wrapper do formulário */
+.contato__form-wrap {
+  background-color: var(--color-cream);
+  padding: var(--space-md);
+  border-radius: 2px;
+  position: relative;
+}
+
+/* Label topo do formulário */
+.contato__form-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-md);
+  font-weight: 600;
+}
+
+/* Campos do formulário */
+.contato__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-field__label {
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  font-weight: 600;
+}
+
+/* Input e textarea com borda somente na base */
+.form-field__input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid rgba(26,22,18,0.25);
+  padding: 8px 0;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.form-field__input:focus {
+  border-bottom-color: var(--color-terracotta);
+}
+
+.form-field__input::placeholder {
+  color: rgba(26,22,18,0.3);
+}
+
+/* Textarea */
+.form-field__input--textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Mensagem de erro (exibida via JS) */
+.form-field__error {
+  font-size: 0.75rem;
+  color: #c0392b;
+  min-height: 18px;
+  display: block;
+}
+
+/* Botão de envio */
+.form-btn {
+  background-color: var(--color-ink);
+  color: var(--color-white);
+  border: none;
+  padding: 14px 24px;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--transition), transform var(--transition);
+  margin-top: var(--space-sm);
+  border-radius: 1px;
+}
+
+.form-btn:hover {
+  background-color: var(--color-terracotta);
+  transform: translateY(-1px);
+}
+
+/* Campo com erro destacado */
+.form-field__input.error {
+  border-bottom-color: #c0392b;
+}
+
+
+/* ----------------------------------------------------------------
+   12. MODAL DE SUCESSO
+---------------------------------------------------------------- */
+
+.form-modal {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  /* Oculto por padrão — JS alterna */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+
+.form-modal.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.form-modal__box {
+  text-align: center;
+  padding: var(--space-md);
+}
+
+.form-modal__icon {
+  display: block;
+  font-size: 3rem;
+  color: var(--color-terracotta);
+  margin-bottom: var(--space-sm);
+}
+
+.form-modal__msg {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: var(--space-xs);
+}
+
+.form-modal__sub {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  margin-bottom: var(--space-md);
+}
+
+.form-modal__close {
+  background: none;
+  border: 1.5px solid var(--color-ink);
+  padding: 8px 20px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--color-ink);
+  transition: background-color var(--transition), color var(--transition);
+  border-radius: 999px;
+}
+.form-modal__close:hover {
+  background-color: var(--color-ink);
+  color: var(--color-white);
+}
+
+
+/* ----------------------------------------------------------------
+   13. FOOTER
+---------------------------------------------------------------- */
+
+.footer {
+  background-color: var(--color-dark);
+  color: rgba(255,255,255,0.4);
+  padding: var(--space-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+
+/* ----------------------------------------------------------------
+   14. ANIMAÇÕES KEYFRAMES
+---------------------------------------------------------------- */
+
+/* Rotação contínua das estrelas decorativas */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Movimento do ticker */
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Fade + slide para cima — usado pelo JS em scroll reveals */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estado inicial das seções antes de entrarem na viewport */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* Classe adicionada pelo IntersectionObserver no JS */
+.reveal.visible {
+  animation: fadeUp 0.6s ease forwards;
+}
+
+
+/* ----------------------------------------------------------------
+   15. RESPONSIVIDADE
+---------------------------------------------------------------- */
+
+/* --- Tablet (≤900px) --- */
+@media (max-width: 900px) {
+
+  /* Oculta links e CTA do desktop; mostra hambúrguer */
+  .navbar__links,
+  .navbar__cta {
+    display: none;
+  }
+
+  .navbar__hamburger {
+    display: flex;
+  }
+
+  /* Hero: foto e info em coluna */
+  .hero__bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__photo-placeholder {
+    max-width: 280px;
+    aspect-ratio: 1 / 1;
+  }
+
+  .hero__data {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Sobre: remove coluna de stats para baixo */
+  .sobre__content {
+    grid-template-columns: 1fr;
+  }
+
+  .sobre__stats {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    padding-top: 0;
+  }
+
+  /* Formação: 2 colunas */
+  .formacao__item {
+    grid-template-columns: 180px 1fr;
+    gap: var(--space-sm);
+  }
+
+  .formacao__item-desc { display: none; }
+
+  /* Projetos: coluna única */
+  .projeto-card,
+  .projeto-card--reverse {
+    grid-template-columns: 1fr;
+    direction: ltr;
+  }
+
+  /* Habilidades: 2 colunas */
+  .habilidades__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .habilidades__col:nth-child(2) { border-right: none; }
+  .habilidades__col:nth-child(3) { border-top: 1px solid rgba(26,22,18,0.15); }
+  .habilidades__col:nth-child(4) { border-top: 1px solid rgba(26,22,18,0.15); }
+
+  /* Contato: coluna única */
+  .contato__inner {
+    grid-template-columns: 1fr;
+  }
+
+  /* Footer: coluna */
+  .footer {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}
+
+/* --- Mobile (≤600px) --- */
+@media (max-width: 600px) {
+
+  :root {
+    --space-lg: 2.5rem;
+    --space-xl: 4rem;
+  }
+
+  .hero__meta {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .hero__data {
+    grid-template-columns: 1fr;
+  }
+
+  .formacao__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .formacao__subtitle { text-align: left; }
+
+  .formacao__item {
+    grid-template-columns: 1fr;
+  }
+
+  .habilidades__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  .habilidades__subtitle { text-align: left; }
+
+  .habilidades__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .habilidades__col { border-right: none; }
+  .habilidades__col + .habilidades__col {
+    border-top: 1px solid rgba(26,22,18,0.15);
+  }
+}
+
+/* Respeita preferência por menos animação */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  html { scroll-behavior: auto; }
+}
